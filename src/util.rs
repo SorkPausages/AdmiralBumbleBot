@@ -32,11 +32,11 @@ pub fn roll_dice(notation: &str) -> Result<u32, String> {
         return Err("Dice cannot have 0 sides".to_string());
     }
 
-    let mut rng = rand::rng();
+    let mut rng = rand::thread_rng();
     let mut total = 0;
 
     for _ in 0..count {
-        total += rng.random_range(1..=sides);
+        total += rng.gen_range(1..=sides);
     }
 
     Ok(total)

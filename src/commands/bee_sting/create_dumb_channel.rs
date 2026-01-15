@@ -1,8 +1,5 @@
 use {
-    crate::util::get_id_from_env,
-    rand::{rng, Rng},
-    serenity::{all::CreateChannel, json::from_reader, model::channel::Message, prelude::Context},
-    std::{collections::HashMap, fs::File},
+    crate::util::get_id_from_env, rand::{Rng, thread_rng}, serenity::{all::CreateChannel, json::from_reader, model::channel::Message, prelude::Context}, std::{collections::HashMap, fs::File}
 };
 
 pub async fn create_dumb_channel(ctx: &Context, msg: &Message) {
@@ -40,7 +37,7 @@ fn get_random_channel() -> Option<(String, String)> {
     };
 
     let names: Vec<String> = channel_names.keys().cloned().collect();
-    let roll = rng().random_range(0..names.len());
+    let roll = thread_rng().gen_range(0..names.len());
 
     Some((
         names[roll as usize - 1].clone(),

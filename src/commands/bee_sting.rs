@@ -1,6 +1,5 @@
 use {
-    rand::seq::IndexedRandom,
-    serenity::{model::channel::Message, prelude::Context},
+    rand::seq::SliceRandom, serenity::{model::channel::Message, prelude::Context}
 };
 
 mod create_dumb_channel;
@@ -21,7 +20,7 @@ pub async fn bee_sting(ctx: &Context, msg: &Message) {
         .await
         .expect("Error sending message");
 
-    let selection = { STINGS.choose(&mut rand::rng()) };
+    let selection = { STINGS.choose(&mut rand::thread_rng()) };
 
     match selection {
         Some(Sting::CreateDumbChannel) => create_dumb_channel::create_dumb_channel(ctx, msg).await,
